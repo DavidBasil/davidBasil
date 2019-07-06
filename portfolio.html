@@ -4,3 +4,6 @@ title: David Basil | Portfolio
 ---
 
 <h2>Portfolio index page</h2>
+{% for item in site.portfolio %}
+<a href="{{ item.url }}">{{ item.title }}</a>
+{% endfor %}
