@@ -1,4 +1,4 @@
-<div class="col-3 bg-dark text-center min-vh-100 px-0">
+<div class="col-3 bg-dark text-center min-vh-100 px-0 {%if page.url == '/'%}animated fadeInLeft{%endif%}">
       <!-- my face -->
       <a href="{{ site.baseurl }}/">
 	<img 
@@ -20,7 +20,7 @@
       </p>
       <!-- social links -->
       <ul class="list-unstyled mt-3">
-	<li class="p-1"><a href="" class="text-warning"><i class="fab fa-github fa-2x"></i></a></li>
+	<li class="p-1"><a href="" class="text-info"><i class="fab fa-github fa-2x"></i></a></li>
 	<li class="p-1"><a href="" class="text-danger"><i class="fab fa-youtube fa-2x"></i></a></li>
 	<li class="p-1"><a href=""><i class="fab fa-linkedin fa-2x"></i></a></li>
 	<li class="p-1"><a href="" class="text-white"><i class="fab fa-facebook-square fa-2x"></i></a></li>
