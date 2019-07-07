@@ -4,16 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{{ page.title }}</title>
-  <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css">
+  <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/bootstrap.min.css" type="text/css">
   <!-- <link rel="stylesheet" href="assets/css/fontawesome.min.css" type="text/css"> -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" type="text/css">
-  <script src="assets/js/jquery.min.js" charset="utf-8"></script>
-  <script src="assets/js/bootstrap.bundle.min.js" charset="utf-8"></script>
+  <script src="{{ site.baseurl }}/assets/js/jquery.min.js" charset="utf-8"></script>
+  <script src="{{ site.baseurl }}/assets/js/bootstrap.bundle.min.js" charset="utf-8"></script>
 </head>
 <body>
-<!-- <a href="{{ site.baseurl }}/">index</a> -->
-<!-- <a href="{{ site.baseurl }}/blog">Blog</a> -->
-<!-- <a href="{{ site.baseurl }}/portfolio">portfolio</a> -->
-{{ content }}
+
+<div class="container">
+  <div class="row">
+    {% include index/left_column.html %}
+    {{ content }}
+  </div>
+</div>
+
 </body>
 </html>

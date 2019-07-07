@@ -3,7 +3,118 @@ layout: default
 title: David Basil | Portfolio
 ---
 
-<h2>Portfolio index page</h2>
-{% for item in site.portfolio %}
-<a href="{{ item.url }}">{{ item.title }}</a>
-{% endfor %}
+<div class="col-9">
+  <h2 class="text-center my-4">My Portfolio</h2>
+
+  <!-- first item -->
+  {% assign item = site.portfolio[0] %}
+  <div class="card my-4 border-light">
+    <div class="row">
+      <div class="col-5">
+	<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3JYd_h-HGJ-FnAyv37k_9InYuQzBh81Wiqq1JTy8jqK3WXYEZ" alt="" class="card-img pt-3 pl-1">
+      </div>
+      <div class="col">
+	<div class="card-body">
+	  <h5 class="card-title border-left border-bottom pb-2 pl-3">Online Store</h5>
+	  <p class="cart-text border-bottom pb-2">
+	    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+	    tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+	    vero eos et accusam et justo duo dolores et ea rebum.
+	  </p>
+	  <p class="text-center pr-5">
+	  <a href="google.com" class="text-decoration-none text-info" target="_blank">
+	    <span class="border-right border-dark pr-2"><i class="fab fa-github"></i> source code</span>
+	  </a>
+	  <a href="google.com" class="text-decoration-none text-danger" target="_blank">
+	    <span class="pl-1"><i class="fab fa-youtube"></i> video</span>
+	  </a>
+	  </p>
+	</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- second item -->
+  {% assign item = site.portfolio[1] %}
+  <div class="card my-4 border-light bg-dark text-white">
+    <div class="row">
+      <div class="col">
+	<div class="card-body">
+	  <h5 class="card-title text-right border-right border-bottom pb-2 pr-3">Job Portal</h5>
+	  <p class="cart-text text-right border-bottom pb-2">
+	    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+	    tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+	    vero eos et accusam et justo duo dolores et ea rebum.
+	  </p>
+	  <p class="text-center pr-1">
+	  <a href="google.com" class="text-decoration-none text-info" target="_blank">
+	    <span class="border-right border-white pr-2"><i class="fab fa-github"></i> source code</span>
+	  </a>
+	  <a href="google.com" class="text-decoration-none text-danger" target="_blank">
+	    <span class="pl-1"><i class="fab fa-youtube"></i> video</span>
+	  </a>
+	  </p>
+	</div>
+      </div>
+      <div class="col-5">
+	<img src="https://poterack.net/wp-content/uploads/2018/08/Poterack-New-Job-Growth.jpg" alt="" class="card-img pt-3 pr-1">
+      </div>
+    </div>
+  </div>
+
+
+  {% assign item = site.portfolio[2] %}
+  <div class="card my-4 border-light">
+    <div class="row">
+      <div class="col-5">
+	<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3JYd_h-HGJ-FnAyv37k_9InYuQzBh81Wiqq1JTy8jqK3WXYEZ" alt="" class="card-img pt-3 pl-1">
+      </div>
+      <div class="col">
+	<div class="card-body">
+	  <h5 class="card-title border-left border-bottom pb-2 pl-3">Online Store</h5>
+	  <p class="cart-text border-bottom pb-2">
+	    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+	    tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+	    vero eos et accusam et justo duo dolores et ea rebum.
+	  </p>
+	  <p class="text-center pr-5">
+	  <a href="google.com" class="text-decoration-none text-info" target="_blank">
+	    <span class="border-right border-dark pr-2"><i class="fab fa-github"></i> source code</span>
+	  </a>
+	  <a href="google.com" class="text-decoration-none text-danger" target="_blank">
+	    <span class="pl-1"><i class="fab fa-youtube"></i> video</span>
+	  </a>
+	  </p>
+	</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- fourth item -->
+  <div class="card my-4 border-light bg-dark text-white">
+    <div class="row">
+      <div class="col">
+	<div class="card-body">
+	  <h5 class="card-title text-right border-right border-bottom pb-2 pr-3">Job Portal</h5>
+	  <p class="cart-text text-right border-bottom pb-2">
+	    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+	    tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+	    vero eos et accusam et justo duo dolores et ea rebum.
+	  </p>
+	  <p class="text-center pr-1">
+	  <a href="google.com" class="text-decoration-none text-info" target="_blank">
+	    <span class="border-right border-white pr-2"><i class="fab fa-github"></i> source code</span>
+	  </a>
+	  <a href="google.com" class="text-decoration-none text-danger" target="_blank">
+	    <span class="pl-1"><i class="fab fa-youtube"></i> video</span>
+	  </a>
+	  </p>
+	</div>
+      </div>
+      <div class="col-5">
+	<img src="https://poterack.net/wp-content/uploads/2018/08/Poterack-New-Job-Growth.jpg" alt="" class="card-img pt-3 pr-1">
+      </div>
+    </div>
+  </div>
+
+</div>
