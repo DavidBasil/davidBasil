@@ -1,9 +1,9 @@
-<div class="col-3 bg-dark text-center min-vh-100 px-0 {%if page.url == '/'%}animated fadeInLeft{%endif%}">
+<div class="col-md-3 bg-dark text-center min-vh-100 px-0 {%if page.url == '/'%}animated fadeInLeft{%endif%}">
       <!-- my face -->
       <a href="{{ site.baseurl }}/">
 	<img 
 	   src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1iIU81Vuy0tiOAeQ1jFOsPMSpH9pFxYijqkvtNnCQn6mzon8OIA" 
-	  class="img rounded-circle p-3 w-75 mb-2">
+    class="img rounded-circle p-3 w-75 mb-2 {%if page.url=='/'%}animated flipInX{%endif%}" style="animation-delay: 0.5s">
       </a>
       <!-- promo text -->
       <!-- <p class="text-white text-uppercase my-4">laravel developer</p> -->
@@ -19,11 +19,11 @@
 	  style="text-decoration: none">portfolio</a>
       </p>
       <!-- social links -->
-      <ul class="list-unstyled mt-3">
-	<li class="p-1"><a href="" class="text-info"><i class="fab fa-github fa-2x"></i></a></li>
-	<li class="p-1"><a href="" class="text-danger"><i class="fab fa-youtube fa-2x"></i></a></li>
-	<li class="p-1"><a href=""><i class="fab fa-linkedin fa-2x"></i></a></li>
-	<li class="p-1"><a href="" class="text-white"><i class="fab fa-facebook-square fa-2x"></i></a></li>
+      <ul class="list-inline mt-3">
+	<li class="p-1 list-inline-item"><a href="" class="text-info"><i class="fab fa-github fa-2x"></i></a></li>
+	<li class="p-1 list-inline-item"><a href="" class="text-danger"><i class="fab fa-youtube fa-2x"></i></a></li>
+	<li class="p-1 list-inline-item"><a href=""><i class="fab fa-linkedin fa-2x"></i></a></li>
+	<li class="p-1 list-inline-item"><a href="" class="text-white"><i class="fab fa-facebook-square fa-2x"></i></a></li>
       </ul>
 
   </div>
