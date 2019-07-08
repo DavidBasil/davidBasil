@@ -10,10 +10,21 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" type="text/css">
   <script src="{{ site.baseurl }}/assets/js/jquery.min.js" charset="utf-8"></script>
   <script src="{{ site.baseurl }}/assets/js/bootstrap.bundle.min.js" charset="utf-8"></script>
+<script charset="utf-8">
+  $(document).ready(function(){
+  $(window).resize(function() {
+    if ($(window).width() > 768) {
+        $('#left-column').addClass('min-vh-100');
+    } else {
+        $('#left-column').removeClass('min-vh-100');
+    }
+}).resize()
+  })
+</script>
 </head>
 <body>
 
-<div class="container">
+<div class="container-fluid">
   <div class="row">
     {% include index/left_column.html %}
     {{ content }}

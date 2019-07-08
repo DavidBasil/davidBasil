@@ -1,29 +1,60 @@
-<div class="col-md-3 bg-dark text-center min-vh-100 px-0 {%if page.url == '/'%}animated fadeInLeft{%endif%}">
-      <!-- my face -->
+<div class="col-md-3 bg-dark text-center min-vh-100 px-0 {%if page.url == '/'%}animated fadeInLeft{%endif%}" id="left-column">
+  <!-- my face -->
+  <div class="row mb-5 pt-3">
+    <div class="col-6 col-md-9 mx-auto">
       <a href="{{ site.baseurl }}/">
 	<img 
-	   src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1iIU81Vuy0tiOAeQ1jFOsPMSpH9pFxYijqkvtNnCQn6mzon8OIA" 
-    class="img rounded-circle p-3 w-75 mb-2 {%if page.url=='/'%}animated flipInX{%endif%}" style="animation-delay: 0.5s">
+	 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1iIU81Vuy0tiOAeQ1jFOsPMSpH9pFxYijqkvtNnCQn6mzon8OIA" 
+  class="img rounded-circle w-75 {%if page.url=='/'%}animated flipInX{%endif%}" style="animation-delay: 0.5s">
       </a>
-      <!-- promo text -->
-      <!-- <p class="text-white text-uppercase my-4">laravel developer</p> -->
-      <!-- navigation -->
-      <p class="mb-0">
-	<a href="{{ site.baseurl }}/blog" 
-	  class="text-uppercase text-white list-group-item bg-dark"
-	  style="text-decoration: none">blog</a>
-      </p>
-      <p class="mt-0">
-	<a href="{{ site.baseurl }}/portfolio" 
-	  class="text-uppercase text-white list-group-item bg-dark"
-	  style="text-decoration: none">portfolio</a>
-      </p>
-      <!-- social links -->
-      <ul class="list-inline mt-3">
-	<li class="p-1 list-inline-item"><a href="" class="text-info"><i class="fab fa-github fa-2x"></i></a></li>
-	<li class="p-1 list-inline-item"><a href="" class="text-danger"><i class="fab fa-youtube fa-2x"></i></a></li>
-	<li class="p-1 list-inline-item"><a href=""><i class="fab fa-linkedin fa-2x"></i></a></li>
-	<li class="p-1 list-inline-item"><a href="" class="text-white"><i class="fab fa-facebook-square fa-2x"></i></a></li>
-      </ul>
-
+    </div>
   </div>
+  <!-- promo text -->
+  <!-- <p class="text-white text-uppercase my-4">laravel developer</p> -->
+  <!-- navigation -->
+  <div class="row no-gutters">
+    <div class="col">
+      <p class="">
+      <a href="{{ site.baseurl }}/blog" 
+	 class="text-uppercase text-white list-group-item bg-dark"
+  style="text-decoration: none">blog</a>
+      </p>
+    </div>
+    <div class="col">
+      <p class="">
+      <a href="{{ site.baseurl }}/portfolio" 
+	 class="text-uppercase text-white list-group-item bg-dark"
+  style="text-decoration: none">portfolio</a>
+      </p>
+    </div>
+  </div>
+  <!-- social links -->
+  <ul class="list-inline mt-2">
+    <li class="p-1 list-inline-item"><a href="" class="text-info"><i class="fab fa-github fa-2x"></i></a></li>
+    <li class="p-1 list-inline-item"><a href="" class="text-danger"><i class="fab fa-youtube fa-2x"></i></a></li>
+    <li class="p-1 list-inline-item"><a href=""><i class="fab fa-linkedin fa-2x"></i></a></li>
+    <li class="p-1 list-inline-item"><a href="" class="text-white"><i class="fab fa-facebook-square fa-2x"></i></a></li>
+  </ul>
+
+  {% if page.url == '/'%}
+    <div class="float-right d-md-none">
+      <blockquote class="blockquote text-right pt-3 pr-3 text-white">
+	<p>Hi there.</p>
+	<p>My name is David Basil <br>and I am a <a class="text-danger text-decoration-none" href="https://laravel.com/">Laravel</a> developer.</p>
+	<p>I love to learn and also teach others.</p>
+	<p>You can check out my 
+	<a href="{{ site.baseurl }}/blog" class="text-info text-decoration-none">blog/vlog</a> or my 
+	<a href="{{ site.baseurl }}/portfolio" class="text-info text-decoration-none">portfolio</a>
+	</p>
+	<footer class="blockquote-footer pt-2">
+	  <span class="badge badge-dark text-uppercase pl-0">laravel</span>
+	  <span class="badge text-muted text-uppercase pl-0">php</span>
+	  <span class="badge badge-dark text-uppercase pl-0">sql</span>
+	  <span class="badge text-uppercase pl-0">bootstrap</span>
+	  <span class="badge badge-dark text-uppercase pl-0">js</span>
+	</footer>
+      </blockquote>
+    </div>
+    {% endif %}
+
+</div>
