@@ -1,0 +1,105 @@
+---
+layout: post
+title:  "How to set up and run Laravel"
+---
+
+<p>Compared to other frameworks/languages, Laravel is pretty easy to setup and run locally.</p>
+
+<p>
+Before you try to install and run Laravel project on your local machine make sure that your setup satisfies the following requirements:
+  <ul class="list-unstyled">
+    <li><i class="fas fa-location-arrow"></i> PHP >= 7.1.3</li>
+    <li><i class="fas fa-location-arrow"></i> BCMath PHP Extension</li>
+    <li><i class="fas fa-location-arrow"></i> Ctype PHP Extension</li>
+    <li><i class="fas fa-location-arrow"></i> JSON PHP Extension</li>
+    <li><i class="fas fa-location-arrow"></i> Mbstring PHP Extension</li>
+    <li><i class="fas fa-location-arrow"></i> OpenSSL PHP Extension</li>
+    <li><i class="fas fa-location-arrow"></i> PDO PHP Extension</li>
+    <li><i class="fas fa-location-arrow"></i> Tokenizer PHP Extension</li>
+    <li><i class="fas fa-location-arrow"></i> XML PHP Extension</li>
+  </ul>
+</p>
+
+<p>The main tool used for Laravel installation is Composer - it's a PHP package manager. Make sure its installed globally on your computer. Go to <a href="https://getcomposer.org/">https://getcomposer.org/</a> to download and install it if you don't have it.
+</p>
+
+<p>There are several tools used for local development environments: XAMPP/MAMP, Valet, Homestead etc. We will utilize the simplest approach: just download Laravel via composer and run it with the help of inbuilt PHP server.</p>
+
+<p>There are two ways we can install a new Laravel application. <u>The first one:</u></p>
+<pre>
+  <code class="bash">
+  composer global require "laravel/installer"
+  </code>
+</pre>
+<p>and then:</p>
+<pre>
+  <code class="bash">
+  laravel new projectname
+  </code>
+</pre>
+
+
+<p><u>The second method:</u></p>
+
+<pre>
+<code class="bash">
+composer create-project laravel/laravel projectname
+</code>
+</pre>
+
+<p>Both commands will create a fresh directory of Laravel application. I personally prefer the first approach.</p>
+
+<p>Now let's go to the freshly installed folder and check its contents:</p>
+
+<ul class="list-unstyled">
+  <li><i class="far fa-folder"></i> app/</li>
+  <li><i class="far fa-folder"></i> bootstrap/</li>
+  <li><i class="far fa-folder"></i> config/</li>
+  <li><i class="far fa-folder"></i> public/</li>
+  <li><i class="far fa-folder"></i> resources/</li>
+  <li><i class="far fa-folder"></i> routes/</li>
+  <li><i class="far fa-folder"></i> storage/</li>
+  <li><i class="far fa-folder"></i> tests/</li>
+  <li><i class="far fa-folder"></i> vendor/</li>
+  <li><i class="far fa-file"></i> .editorconfig</li>
+  <li><i class="far fa-file"></i> .env</li>
+  <li><i class="far fa-file"></i> .env.example</li>
+  <li><i class="far fa-file"></i> .gitattributes</li>
+  <li><i class="far fa-file"></i> .gitignore</li>
+  <li><i class="far fa-file"></i> artisan</li>
+  <li><i class="far fa-file"></i> composer.json</li>
+  <li><i class="far fa-file"></i> composer.lock</li>
+  <li><i class="far fa-file"></i> package.json</li>
+  <li><i class="far fa-file"></i> phpunit.xml</li>
+  <li><i class="far fa-file"></i> readme.md</li>
+  <li><i class="far fa-file"></i> server.php</li>
+  <li><i class="far fa-file"></i> webpack.mix.js</li>
+</ul>
+
+<p>Lets quickly go over those files:</p>
+
+<p><span class="font-weight-bold">app/</span>: majority of your work will reside here (models, controllers).</p>
+<p><span class="font-weight-bold">bootstrap/</span>: Laravel uses these files to start the boot procesess.</p>
+<p><span class="font-weight-bold">config/</span>: a folder for configuration settings.</p>
+<p><span class="font-weight-bold">database/</span>: as you already guessed, this folder contains stuff related to database, like seeds, factories and migrations.</p>
+<p><span class="font-weight-bold">public/</span>: directory for static files, images, stylesheets. Also has index.php file that a web server interacts with every time someone visits your app.</p>
+<p><span class="font-weight-bold">resources/</span>: files ready to be transpiled and compiled; those are mainly sass/less and javascript and also views.</p>
+<p><span class="font-weight-bold">routes/</span>: route definitions live in this folder.</p>
+<p><span class="font-weight-bold">storage/</span>: a place for logs, caches and compiled system files.</p>
+<p><span class="font-weight-bold">test/</span>: folder for tests.</p>
+<p><span class="font-weight-bold">vendor/</span>: a place where composer installs project dependencies.</p>
+<p><span class="font-weight-bold">.env</span>: a file of high importance; it contains environment variables such as database credentials, app name and so on.</p>
+<p><span class="font-weight-bold">composer.json</span>: defines PHP dependencies.</p>
+<p><span class="font-weight-bold">package.json</span>: similar to composer.json but for front-end javascript packages.</p>
+<p>There are other miscellaneous files in the project folder but they play a minor role. You can easily google information if the need arises.</p>
+
+<p>To test our application live, type the following command into your terminal:</p>
+
+<pre>
+  <code class="bash">
+  php artisan serve
+  </code>
+</pre>
+
+<p>This command will spin up a local php server to help us develop and test the Laravel app.</p>
+<p>Don't forget to initialize git repo in the project's root directory; version control is super important in modern development.</p>

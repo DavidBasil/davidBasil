@@ -1,0 +1,138 @@
+---
+layout: post
+title:  "Laravel controllers - heart of application"
+---
+
+<p>We touched on Laravel controllers in the previous post. Now lets dive deep into the topic.</p>
+
+<p>What is a controller? A Laravel controller, just any other controllers in similar frameworks, are basically PHP classes that mainly serve two functions: get something out of database or put something into it. We are able to organize the request/response logic with help of those classes; however too much logic in a single controller is not healthy and we will learn how to divide large chunks of code in subsequent chapters.</p>
+
+<p>As with everything in Laravel, creating a new controller is a breeze:</p>
+
+<pre>
+  <code class="bash">
+  php artisan make:controller ProductsController
+  </code>
+</pre>
+
+<p>This command will create a file named <em>ProductsController.php</em> in <em>app/Http/Controllers</em> folder. We could create this file manually but "artisan" command line tool is the preferred way. We will discuss "php artisan" in upcoming posts.</p>
+
+<p>Have a look at the <em>ProductsController</em> file. At the moment is just has an empty class of ProductsController. Let's define a new public function named "index":</p>
+
+<pre>
+  <code class="php">
+  public function index()
+  {
+      return 'List of Products';
+  }
+  </code>
+</pre>
+
+<p>Now attach a route to this function in <em>web.php:</em></p>
+
+<pre>
+  <code class="php">
+  Route::get('products', 'ProductsController@index');
+  </code>
+</pre>
+
+<p>Visit <em>localhost:8000/products</em> in your web browser and our app will display a text of "List of Products" that we defined in <em>index</em> function. Congratulations! Now we have a working web application.</p>
+
+<p>As we said before, the second common task a controller performs is storage of data into the database. But before that we need to get data from the outside world, right? The most common way to input the information is through the web forms.</p>
+
+<p>Define a new route that shows a form for data submission:</p>
+
+<pre>
+  <code class="php">
+  Route::get('products/create', 'ProductsController@create');
+  </code>
+</pre>
+
+<p>After submitting the data we need another method from <em>ProductsController</em> for validation and storage. Add one more route defition:</p>
+
+<pre>
+ <code class="php">
+ Route::post('products', 'ProductsController@store');
+ </code>
+</pre>
+
+<p>The "create" method will just show the HTML form. The second method will receive the submitted data and perform any other desired action. For now we will just redirect users to the main products page after successfully saving a new product:</p>
+
+<pre>
+  <code class="php">
+  public function store()
+  {
+    Product::create(request()->only(['title', 'price']));
+    return redirect('tasks');
+  }
+  </code>
+</pre>
+
+<p>This function takes "title" and "price" from the submitted form and creates a new product instance. User gets redirected to the products page afterwards.</p>
+
+<p>We don't have to manually define all actions a particular controller should perform. Laravel can generate all nececassry methods needed for CRUD operations with the help of this command:</p>
+
+<pre>
+  <code class="bash">
+  php artisan make:controller ProductsController --resource
+  </code>
+</pre>
+
+<p>It looks almost the same as before but we added "--resource" option this time. Have a look at the <em>ProductsController</em> now: it's prefilled with the CRUD methods.</p>
+
+<p>Similarly to controller we need to define a "resource" route:</p>
+
+<pre>
+  <code class="php">
+  Route::resource('products', 'ProductsController');
+  </code>
+</pre>
+
+<p>Now both resource controller and router are in sync. You can check our application routes with the command:</p>
+
+<pre>
+  <code class="bash">
+  php artisan route:list
+  </code>
+</pre>
+
+<p>In a case when a you need only a single method in controller you don't have to come up with function names. There is a special method "__invoke" which allows to treat a whole controller class as a function. Have a look:</p>
+
+<pre>
+  <code class="php">
+  // UpdateProductImage.php
+  public function __invoke()
+  {
+    // do something
+  }
+
+  // web.php
+  Route::post('products/update-image', 'UpdatProductImage');
+  </code>
+</pre>
+
+<h5>Route Model Binding</h5>
+
+<p>Laravel provides a nice feature that simplifies the lookup of a particular resource in database. Usually your route can look like this:</p>
+
+<pre>
+  <code class="php">
+  Route::get('products/{id}', function($id){
+    $product = Product::find($id);
+  })
+  </code>
+</pre>
+
+<p>Instead of explicitly passing product id we can use "route model binding". Rewrite the router:</p>
+
+<pre>
+  <code class="php">
+  Route::get('products/{product}', function(Product $product){
+    return view('products.show')->with('product', $product);
+  })
+  </code>
+</pre>
+
+<p>Everytime user visits this particular route its going to be assumed that whatever dynamic parameter is passed into the URL should be treated as a Product resource.</p>
+
+<p>Instead of returning a text or a view (more about views in next posts) we can output a custom response. Two of the most popular custom responses are "response()->json()" and "response()->download()". The first one as you've probably already concluded returns a JSON content and second method sends a file for the user to download. To read up more on custom responses, visit <a href="https://laravel.com/docs/5.8/responses#other-response-types">other response types</a> from Laravel's official documentation.</p>

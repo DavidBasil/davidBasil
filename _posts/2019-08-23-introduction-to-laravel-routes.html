@@ -1,0 +1,146 @@
+---
+layout: post
+title:  "Introduction to Laravel routes"
+---
+
+<p>Before diving into Laravel routes, let's familiarize ourselves with the fundamental pricinciples of <strong>HTTP</strong>.</p>
+<p><strong>HTTP</strong> stands for "Hypertext Transfer Protocol" and it represents a system which is used by web servers to interact with the end user. This mechanism helps us with sending requests to remote machines and getting a specific response in return.</p>
+
+<p>HTTP has several methods (verbs) corresponding to specific actions that can be executed on the server:</p>
+
+<ul>
+  <li><strong>GET</strong> - requests data</li>
+  <li><strong>POST</strong> - creates data</li>
+  <li><strong>PUT/PATCH</strong> - modifies and updates specific data</li>
+  <li><strong>DELETE</strong> - deletes data</li>
+</ul>
+
+<p>Routes in Laravel applications are defined in two files: in <em>routes/web.php</em> and <em>routes/api.php</em>. They represent functions that map to the particular HTTP request along with the HTTP verb. For example:</p>
+
+<pre>
+  <code class="php">
+  Route::get('/', function(){
+    return 'Hi there';
+  })
+  </code>
+</pre>
+
+<p>This code states that if a user visits the root of the project, Laravel will return (send) a defined text response. Creator of the framework made sure the working code is easy to read and understand. Pretty neat, right?</p>
+
+<p>What is we want to post some data to the server? Or maybe delete some stuff? Here we go:</p>
+
+<pre>
+  <code class="php">
+  Route::post('products', function(){
+  	// some programming logic
+  })
+
+  Route::put('products/3', function(){
+	// some programming logic
+  })
+
+  Route::delete('products/23', function(){
+  	// some programming logic
+  })
+  </code>
+</pre>
+
+<p>As you can see, we just need to define an HTTP verb after the Route facade (Route::) to let know Laravel what we want to do when user interacts with our app. There are also two additional options:</p>
+
+<pre>
+  <code class="php">
+  Route::any('/', function(){
+  	// any web request
+  })
+
+  Route::match(['get', 'post'], 'products', function(){
+  	// works with either GET or POST request
+  })
+  </code>
+</pre>
+
+<p>So far we used to pass closures while defining routes; its a quick and easy way but if you want build your applications in a more professionall and responsible manner, there is other way to perfrom the same task:</p>
+
+<pre>
+  <code class="php">
+  Route::get('products', 'ProductsController@index');
+  </code>
+</pre>
+
+<p>In such case we pass controller name and method instead of a closure. We will discuss controllers in the next post. Now lets get back to routes.</p>
+
+<p>Oftentimes, you will need to define some parameters for you routes, let's say an "id" for a specific product:</p>
+
+<pre>
+  <code class="php">
+  Route::get('products/{id}', 'ProductsController@show');
+  </code>
+</pre>
+
+<p>As you've probably already guessed this route accepts a dynamic parameter of "id" so we get a particular product from our database and not all of them.</p>
+
+<p>What if we need to call those routes somewhere else in our application, let's say views? Laravel enables us to give names for routes:</p>
+
+<pre>
+  <code class="php">
+    Route::get('/', 'HomeController@index')->name('home');
+  </code>
+</pre>
+
+<p>Now you can take that name and put it wherever you want, for example in a navigation menu:</p>
+
+<pre>
+  <code class="html">
+    {% raw %}
+    &lt;a href=&quot;{{ route('home') }}&quot;&gt;Home&lt;/a&gt;  
+    {% endraw %}
+  </code>
+</pre>
+
+<p>Clean and easy again, right? That's why we love Laravel.</p>
+
+<p>You're free to name your routes however you like but its advisable to follow a particular naming pattern:</p>
+
+<ul>
+  <li>products.index</li>
+  <li>products.create</li>
+  <li>products.store</li>
+  <li>products.show</li>
+  <li>products.edit</li>
+  <li>products.update</li>
+  <li>products.destroy</li>
+</ul>
+
+<p>To learn more about these naming conventions visit <a href="https://laravel.com/docs/5.8/controllers#resource-controllers">Laravel's resource controllers</a>.</p>
+
+<p>Laravel makes it easy to group multiple routes together: it helps to organize and clean up "web.php" file which can get messy pretty fast if you are not careful. In order to group several routes you just surround them with a "group" function:</p>
+
+<pre>
+  <code class="php">
+  Route::group(function(){
+    Route::get('admin', function(){
+      return 'Admin page';
+    });
+    Route::get('admin/profile', function(){
+      return 'Amdin profile page';
+    })
+  })
+  </code>
+</pre>
+
+<p>Similar to grouping, there is also a "prefix" method so we can simplify our route groups even further:</p>
+
+<pre>
+<code class="php">
+  Route::prefix('admin')->group(function(){
+    Route::get('/', function(){
+      // goes to /admin
+    });
+    Route::get('profile', function(){
+      // goes to /admin/profile
+    })
+  })
+</code>
+</pre>
+
+<p>That's about it. Make sure to visit <a href="https://laravel.com/docs/5.8">Laravel documentation</a> every now and then to learn more about Laravel goodies.</p>
