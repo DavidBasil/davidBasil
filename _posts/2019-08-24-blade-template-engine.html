@@ -1,0 +1,173 @@
+---
+layout: post
+title:  "Blade - template engine"
+---
+
+<p>Raw PHP can be used as a template language; however almost all of modern web frameworks offer their own way to handle data on the front-end. Laravel ships with a very nice template engine called "Blade" by default. It's very simple and powerful at the same time. Let's check the syntax:</p>
+
+<pre>
+  <code class="html">{% raw %}
+  &lt;h3&gt;{{ $user-&gt;username }}&lt;/h3&gt;
+
+  @foreach ($products as $product)
+  &lt;li&gt;{{ $product-&gt;title }}&lt;/li&gt;
+  @endforeach{% endraw %}
+  </code>
+</pre>
+
+<p>If you are familiar with other template engines like "twig" or "mustache", the syntax will seem very familiar to you. Blade uses curly braces to output the data (variable) and the address sign "@" for control stuctures: for loops, if statments etc. If you look closer you can notice that blade syntax is basically a slightly modified PHP code. You are free to use raw PHP in your templates but this engine provides a very nice, easy to read structures and other supportive methods and helpers which cannot be ignored.</p>
+
+<h5>Displaying data</h5>
+
+<p>As we already saw, curly braces are used to echo a particular piece of data. "{%raw%}{{ $user->username }}{%endraw%}" is the same as "{%raw%}&lt;?php echo $user->username ?>{%endraw%}" or "{%raw%}&lt;?= $user->username ?>{%endraw%}". You have to agree that Blade version looks much better.</p>
+
+<h5>Control structures</h5>
+
+<p>Conditionals and loops in Blade work the same way as with regular PHP.</p>
+
+<h6>@if</h6>
+
+<pre>
+<code class="html">{%raw%}
+  @if (count($products) === 1)
+    There is only one product in inventory.
+  @elseif (count($products) &gt; 1)
+    There are several products in inventory
+  @else
+    There are no products in warehouse.{%endraw%}
+</code>
+</pre>
+
+<h6>@unless</h6>
+
+<pre>
+<code class="html">{%raw%}
+  @unless ($product->inStock())
+    This product is not available
+  @endunless{%endraw%}
+</code>
+</pre>
+
+<p>Now let's talk about loops.</p>
+
+<h6>@for, @foreach, @while, @forelse</h6>
+
+<pre>
+<code class="html">{%raw%}
+  @for ($i = 0; $i < count($products); $i++)
+    The number of products is {{ $i }}
+  @endfor{%endraw%}
+</code>
+</pre>
+
+<pre>
+<code class="html">{%raw%}
+  @foreach ($products as $product)
+    {{ $product->title }} | {{ $product->price }}
+  @endforeach{%endraw%}
+</code>
+</pre>
+
+<pre>
+<code class="html">{%raw%}
+  @while (count($products) > 0)
+    There are several products in warehouse.
+  @endwhile{%endraw%}
+</code>
+</pre>
+
+<pre>
+<code class="html">{%raw%}
+  @forelse ($products as $product)
+    {{ $product->title }} | {{ $product->price }}
+  @empty
+    There are no products in inventory.
+  @endforelse{%endraw%}
+</code>
+</pre>
+
+<h5>Template inheritance</h5>
+
+<p>Laravel's Blade gives us the ability to extend other templates (views). Have a look:</p>
+
+<pre>
+<code class="html">{%raw%}
+ &lt;html&gt;                                                                          
+ &lt;head&gt;                                                                          
+ &lt;title&gt;&lt;/title&gt;                               
+ &lt;/head&gt;                                                                         
+ &lt;body&gt;                                                                          
+   &lt;div class=&quot;container&quot;&gt;                                                       
+     @yield('content')                                                             
+   &lt;/div&gt;                                                                        
+ &lt;/body&gt;                                                                         
+ &lt;/html&gt; 
+{%endraw%}
+</code>
+</pre>
+
+<p>As you can see we have a "@yield" directive along with the regular html. This directive allows us to extend its content in child views. Let's see some practical examples to understand it fully. Let's call this html code a "master" layout or "master" template. And now this is the child view:</p>
+
+<pre>
+<code class="html">{%raw%}
+@extends('layouts.master')
+
+@section('content')
+  This is a child view. It can be about page, contact, etc.
+@endsection{%endraw%}
+</code>
+</pre>
+
+<p>We extend aka "inject" the content section into the master layout. This helps us avoid a lot of repetition of boilerplate code in our project. So remember, "@yield" directive is a place where "section" portion of the page can be inserted into.</p>
+
+<p>What if we need to include some html partial into a view? With the help of "@include" directive it's a piece of cake:</p>
+
+<pre>
+<code class="html">{%raw%}
+  &lt;div class=&quot;container-fluid&quot;&gt;                                                   
+    &lt;p&gt;Click here to delete the product&lt;/p&gt;                                       
+    @include('partials.delete-button')                                            
+  &lt;/div&gt;
+{%endraw%}
+</code>
+</pre>
+
+<p>"@include" directive also has varations: "@includeIf", "@includeWhen" and "@includeFirst".</p>
+
+<p>Sometimes there are cases when a certain page has some unique files (css, js) they need to include. "@stack" and "@push" are directives that help us with the task.</p>
+
+<pre>
+<code class="html">{%raw%}
+&lt;html&gt;
+&lt;head&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;script src=&quot;/js/jquery.min.js&quot;&gt;&lt;/script&gt;
+@stack('js')
+&lt;/body&gt;
+&lt;/html&gt;
+{%endraw%}
+</code>
+</pre>
+
+<p>Now use "@push" directive on a child page to "push" page-specific code into the parent layout:</p>
+
+<pre>
+<code class="html">{%raw%}
+@extends('layouts.master')
+
+Some content
+
+@push('js')
+&lt;script&gt;
+  console.log('app booted...');
+&lt;/script&gt;
+@endpush
+{%endraw%}
+</code>
+</pre>
+
+<p>"@push" places your page-specific at the end of the parent's "@stack". If you want to add it at the top (prepend), use "@prepend".</p>
+
+<p>To learn about components and slots and also how to build custom Balde directives, visit <a href="https://laravel.com/docs/5.8/blade">Laravel's Blade Templates</a>.</p>
