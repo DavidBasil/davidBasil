@@ -1,0 +1,132 @@
+---
+layout: post
+title:  "Database and Migrations"
+---
+
+<p>There are serveral reasons why Laravel received its fame: database options and migrations. In this chapter we will discuss how framework's allows us to work with the storage tools. Next blog post will uncover Eloquent - powerful yet simple ORM (object-relational mapper).</p>
+
+<p>There are two files responsible for database configuration: <em>.env</em> and <em>config/database.php</em>. Have a look at the later; there you can see options for different database drivers. Laravel gives us an opportunity to define multiple connections within the same application. You might have a question "why do I need this?". Well, you may use different databases for different types of data or for different operation types (writing, reading). You can define default connection type and its credentials in <em>.env</em> file.</p>
+
+<h5>Migrations</h5>
+
+<p>A migration is a file that basically allows us to modify or share the database structure. You can look at the migration like a version control of your application's database. Those files live in <em>database/migrations</em> directory.</p>
+
+<p>Every migration file has two functions: "up" and "down". Those are basically instructions for modifying your database structure. "Up" method usually has commands to add a new table and columns or modify them. "Down" method is used to revert those changes.</p>
+
+<p>As with everything, we can generate and run migrations with the help of command line tool artisan. To create a new migration file run:</p>
+
+<pre>
+<code class="bash">
+php artisan make:migration --migration_name
+
+</code>
+</pre>
+
+<p>For example we want to create a new table called "products" to our database. We run:</p>
+
+<pre><code class="bash">
+php artisan make:migration create_products_table
+
+</code></pre>
+
+<p>We can pass two options when creating a new migration: <em>--create=table_name</em> fills up the file with all the code needed to create a new table. What if we want to modify the existing table? Pass <em>--table=table_name</em> option.</p>
+
+<p>Run a command to create a "products" table and let's check its content. We see there is a Schema facade that uses a "create" method to instantiate a new table named "products":</p>
+
+<pre>
+<code class="php">
+Schema::create('products', function (Blueprint $table){
+  $table->string('name');
+});
+
+</code>
+</pre>
+
+<p>What we see is a Schema builder used to define the table's columns. There is an instance of <em>Blueprint</em> and it has numerous methods for working with columns: <em>string</em>, <em>integer</em>, <em>datetime</em>, etc. Make sure to check <a href="https://laravel.com/docs/5.8/migrations#columns" target="_blank">migrations docs</a> to find out about each and every method.</p>
+
+<p>Modifying a table column looks pretty simple; we just append the "change" method:</p>
+
+<pre>
+<code class="php">
+Schema::table('products', function (Blueprint $table){
+  $table->string('name', 100)->change();
+});
+
+</code>
+</pre>
+
+<p>Here's how we can rename a particular column:</p>
+
+<pre>
+<code class="php">
+Schema::table('products', function (Blueprint $table){
+  $table->renameColumn('sold', 'is_sold');
+});
+
+</code>
+</pre>
+
+<p>Want to delete a column? No problem:</p>
+
+<pre>
+<code class="php">
+Schema::table('products', function (Blueprint $table){
+  $table->dropColumn('quantity');
+});
+
+</code>
+</pre>
+
+<p>Laravel provides several ways to add and/or remove column indexes:</p>
+
+<pre>
+<code class="php">
+$table->primary('primary_id');
+
+$table->unique('username');
+
+$table->index('email');
+
+</code>
+</pre>
+
+<p>And removing:</p>
+
+<pre>
+<code class="php">
+$table->dropPrimary('id');
+
+$table->dropUnique('username');
+
+$table->dropIndex('email');
+
+</code>
+</pre>
+
+<p>Migrations would have no reason to live unless we run them. Artisan command:</p>
+
+<pre>
+<code class="bash">
+php artisan migrate
+
+</code>
+</pre>
+
+<p>This command will run all "current" migrations. Laravel checks for any available migrations every time we run that command in terminal.</p>
+
+<p>As with everything, we have several options that we can pass to the artisan command:</p>
+
+<pre>
+<code class="php">
+php artisan migrate:reset // rolls back every migration
+
+php artisan migrate:refresh // reruns each migration
+
+php artisan migrate:fresh // deletes tables and runs "up" method
+
+php artisan migrate:rollback // rolls back the migrations ran last time
+
+php artisan migrate:status // shows a listing of all migrations
+
+</code>
+</pre>
